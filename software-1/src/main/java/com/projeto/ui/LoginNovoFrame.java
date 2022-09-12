@@ -1,12 +1,14 @@
 package com.projeto.ui;
 
 import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -20,26 +22,25 @@ import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 import com.projeto.dao.DAOFactory;
 import com.projeto.domain.Usuario;
+import com.projeto.ui.util.Icones;
 
 public class LoginNovoFrame extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
 	JPanel panel = new JPanel(new BorderLayout());
-
+	JMenuBar menu = new JMenuBar();
 	JLabel usuarioTxt;
 	JLabel senhaTxt;
 	JLabel criado;
 	JLabel naoCriado;
-
 	private JTextField textFieldUsuario;
 	private JPasswordField textFieldSenha;
-
 	JButton salvarBotao;
 	JButton voltarBotao;
-
+	JButton sairBotao;
 	DefaultFormBuilder builder;
-
 	PresentationModel<Usuario> model;
+	Icones icone = new Icones();
 
 	public LoginNovoFrame() {
 
@@ -47,6 +48,8 @@ public class LoginNovoFrame extends JFrame implements ActionListener {
 		setSize(300, 500);
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout());
+		setJMenuBar(menu);
+		setUndecorated(true);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		initModels();
@@ -62,6 +65,17 @@ public class LoginNovoFrame extends JFrame implements ActionListener {
 	}
 	
 	private void initComponents() {
+		
+		sairBotao = new JButton();
+		sairBotao.setIcon(icone.getExitIcon());
+		sairBotao.setBorderPainted(false);
+		sairBotao.setContentAreaFilled(false);
+		sairBotao.addActionListener(e -> System.exit(0));
+		sairBotao.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
+		menu.setLayout(new BorderLayout());
+		menu.setBorderPainted(false);
+		menu.add(sairBotao, BorderLayout.EAST);
 
 		usuarioTxt = new JLabel("Usuário", SwingConstants.LEFT);
 		senhaTxt = new JLabel("Senha", SwingConstants.LEFT);

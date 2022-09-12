@@ -99,7 +99,7 @@ public class VendaInicioPanel extends JPanel implements ActionListener {
 
 	public void initLayout() {
 
-		FormLayout layout = new FormLayout("60dlu, 10px, 60dlu, 10px, fill:265dlu:grow, 10px, 60dlu");
+		FormLayout layout = new FormLayout("60dlu, 10px, 60dlu, 10px, fill:410dlu:grow, 10px, 60dlu");
 		DefaultFormBuilder builder = new DefaultFormBuilder(layout);
 
 		builder.border(new EmptyBorder(10, 10, 10, 10));

@@ -2,6 +2,7 @@ package com.projeto.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -22,21 +24,21 @@ import com.jgoodies.forms.builder.DefaultFormBuilder;
 import com.jgoodies.forms.factories.CC;
 import com.jgoodies.forms.layout.FormLayout;
 import com.projeto.domain.command.ValidaSenhaCommand;
+import com.projeto.ui.util.Icones;
 
 public class LoginFrame extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 
 	JPanel panel = new JPanel(new BorderLayout());
-
+	JMenuBar menu = new JMenuBar();
+	JButton sairBotao;
 	JButton loginBotao;
 	JButton criarBotao;
-
 	JLabel usuarioTxt;
 	JLabel senhaTxt;
-
+	Icones icone = new Icones();
 	private JTextField textFieldUsuario;
 	private JPasswordField textFieldSenha;
-
 	JCheckBox guardaUsuario;
 	DefaultFormBuilder builder;
 
@@ -46,6 +48,8 @@ public class LoginFrame extends JFrame implements ActionListener {
 		setSize(300, 500);
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout());
+		setJMenuBar(menu);
+		setUndecorated(true);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		initComponents();
@@ -54,6 +58,17 @@ public class LoginFrame extends JFrame implements ActionListener {
 
 	public void initComponents() {
 
+		sairBotao = new JButton();
+		sairBotao.setIcon(icone.getExitIcon());
+		sairBotao.setBorderPainted(false);
+		sairBotao.setContentAreaFilled(false);
+		sairBotao.addActionListener(e -> System.exit(0));
+		sairBotao.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		
+		menu.setLayout(new BorderLayout());
+		menu.setBorderPainted(false);
+		menu.add(sairBotao, BorderLayout.EAST);
+		
 		loginBotao = new JButton();
 		loginBotao.setText("Login");
 		loginBotao.addActionListener(this);
@@ -81,7 +96,7 @@ public class LoginFrame extends JFrame implements ActionListener {
 		guardaUsuario = new JCheckBox();
 		guardaUsuario.setText("Lembrar-me");
 		guardaUsuario.setToolTipText("Deixa o usuário e senhas salvos");
-
+		
 	}
 
 	public void initLayout() {
@@ -101,7 +116,7 @@ public class LoginFrame extends JFrame implements ActionListener {
 		builder.add(textFieldSenha, CC.xy(3, 8));
 
 		builder.add(guardaUsuario, CC.xy(3, 10));
-
+		
 		builder.add(loginBotao, CC.xy(3, 12));
 		builder.add(criarBotao, CC.xy(3, 14));
 
@@ -116,6 +131,7 @@ public class LoginFrame extends JFrame implements ActionListener {
 		if (e.getSource() == loginBotao) {
 
 			new ValidaSenhaCommand(textFieldUsuario.getText(), textFieldSenha.getText()).execute();
+			dispose();
 
 		} else if (e.getSource() == criarBotao) {
 
